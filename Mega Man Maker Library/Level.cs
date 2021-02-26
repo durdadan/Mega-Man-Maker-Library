@@ -176,7 +176,7 @@ namespace Maker
             if (this.Difficulty != null)
             {
                 double difficulty = (int)((double)this.Difficulty * 100);
-                if (difficulty == 99)
+                if (difficulty >= 99)
                 {
                     difficultyString = "Kaizo";
                 }

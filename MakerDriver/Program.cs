@@ -11,7 +11,8 @@ namespace MakerDriver
             Console.Clear();
 
             Maker.Api api = new Maker.Api();
-            List<Level> levels = api.GetLevels();
+            List<Level> levels = api.GetLevels(Maker.LevelOrder.Downloads, OrderDirection.Desc, 0, 5);
+            //List<Level> levels = api.GetLevelsBySearch("kaizo race", 0, 100);
             foreach (var l in levels)
             {
                 Console.WriteLine(l.GetBossName());
@@ -35,7 +36,7 @@ namespace MakerDriver
                 Console.WriteLine("═══════════════════════════════════");
             }
 
-            Level level = api.GetLevel(52);
+            Level level = api.GetLevel(507638);
             Console.WriteLine(level.GetBossName());
             Console.Write(level.GetId() + "\t");
             Console.WriteLine(level.GetName());
