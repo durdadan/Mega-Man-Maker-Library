@@ -8,16 +8,25 @@ namespace Maker
     {
         #region Properties
 
-        private int Id;
-        private string Name;
-        private int Icon;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int Icon { get; set; }
 
         #endregion Properties
 
         #region Constructors
 
+        /// <summary>
+        /// Basic Constructor
+        /// </summary>
         public Author() { }
 
+        /// <summary>
+        /// Constructs an Author
+        /// </summary>
+        /// <param name="id">An integer representing a user id.</param>
+        /// <param name="name">A string representing a user name.</param>
+        /// <param name="icon">An integer representing an image icon.</param>
         public Author(int id, string name, int icon)
         {
             this.Id = id;
@@ -26,44 +35,6 @@ namespace Maker
         }
 
         #endregion Constructors
-
-        #region Getters
-
-        public int GetId()
-        {
-            return this.Id;
-        }
-
-        public string GetName()
-        {
-            return this.Name;
-        }
-
-        public int GetIcon()
-        {
-            return this.Icon;
-        }
-
-        #endregion Getters
-
-        #region Setters
-
-        public void SetId(int id)
-        {
-            this.Id = id;
-        }
-
-        public void SetName(string name)
-        {
-            this.Name = name;
-        }
-
-        public void SetIcon(int icon)
-        {
-            this.Icon = icon;
-        }
-
-        #endregion
 
     }
 }

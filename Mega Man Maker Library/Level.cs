@@ -7,13 +7,13 @@ namespace Maker
     {
         #region Properties
 
-        private int Id;
-        private string Name;
-        private double? Difficulty;
-        private int Likes;
-        private int Dislikes;
-        private int Boss;
-        private Author Author;
+        public int Id { get; set;}
+        public string Name { get; set; }
+        public double? Difficulty { get; set; }
+        public int Likes { get; set; }
+        public int Dislikes { get; set; }
+        public int Boss { get; set; }
+        public Author Author { get; set; }
 
         private enum BossNames
         {
@@ -89,81 +89,6 @@ namespace Maker
         }
 
         #endregion
-
-        #region Getters
-
-        public int GetId()
-        {
-            return this.Id;
-        }
-
-        public string GetName()
-        {
-            return this.Name;
-        }
-
-        public double? GetDifficulty ()
-        {
-            return this.Difficulty;
-        }
-
-        public int GetLikes()
-        {
-            return this.Likes;
-        }
-
-        public int GetDislikes()
-        {
-            return this.Dislikes;
-        }
-
-        public int GetBoss()
-        {
-            return this.Boss;
-        }
-
-        public Author GetAuthor()
-        {
-            return this.Author;
-        }
-        #endregion Getters
-
-        #region Setters
-
-        public void SetId(int id)
-        {
-            this.Id = id;
-        }
-
-        public void SetName(string name)
-        {
-            this.Name = name;
-        }
-
-        public void SetLikes(int likes)
-        {
-            this.Likes = likes;
-        }
-
-        public void SetDislikes(int dislikes)
-        {
-            this.Dislikes = dislikes;
-        }
-        public void SetDifficulty(double difficulty)
-        {
-            this.Difficulty = difficulty;
-        }
-        public void SetBoss (int boss)
-        {
-            this.Boss = boss;
-        }
-
-        public void SetAuthor (Author author)
-        {
-            this.Author = author;
-        }
-
-        #endregion Setters
 
         #region Methods
         

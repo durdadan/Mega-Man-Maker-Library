@@ -152,6 +152,42 @@ namespace Maker
             return level;
         }
 
+        public Record GetLevelRecord(int levelId)
+        {
+            string url = String.Format("https://megamaker.webmeka.io/api/getRecordHolder/{0}", levelId);
+
+            WebRequest request = WebRequest.Create(url);
+            Stream requestStream = request.GetResponse().GetResponseStream();
+
+            StreamReader objReader = new StreamReader(requestStream);
+            dynamic data = JObject.Parse(objReader.ReadLine());
+
+            int levelid = 0;
+            bool exists = false;
+            bool deleted = false;
+            bool hasRecord = false;
+            int bestTime = 0;
+            string bestTimeString = String.Empty;
+            string recordHolder = String.Empty;
+            int numberOfPlayers = 0;
+
+
+            levelid = data.levelId;
+            exists = data.levelExists;
+            if (exists)
+            {
+                deleted = data.levelDeleted == "0" ? false: true ;
+                hasRecord = data.levelHasBeatenTimeRecorded;
+                bestTime = data.levelBestBeatenTime;
+                bestTimeString = data.levelBestBeatenTimeReadable;
+                recordHolder = data.levelBestBeatenTimeHolderName;
+                numberOfPlayers = data.levelUsersWithRecords;
+            }
+            Record record = new Record(levelid, exists,deleted,hasRecord,bestTime,bestTimeString,recordHolder,numberOfPlayers);
+
+            return record;
+        }
+
         /// <summary>
         /// Gets an Author by it's ID
         /// </summary>
