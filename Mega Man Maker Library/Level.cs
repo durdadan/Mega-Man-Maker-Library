@@ -14,6 +14,8 @@ namespace Maker
         public int Dislikes { get; set; }
         public int Boss { get; set; }
         public Author Author { get; set; }
+        public DateTime Date { get; set; }
+        public int Downloads { get; set; }
 
         private enum BossNames
         {
@@ -77,7 +79,7 @@ namespace Maker
         {
         }
 
-        public Level(int id, string name, double? difficulty, int likes, int dislikes, int boss, Author author)
+        public Level(int id, string name, double? difficulty, int likes, int dislikes, int boss, Author author, DateTime date,int downloads)
         {
             this.Id = id;
             this.Name = name;
@@ -86,6 +88,8 @@ namespace Maker
             this.Dislikes = dislikes;
             this.Boss = boss;
             this.Author = author;
+            this.Date = date;
+            this.Downloads = downloads;
         }
 
         #endregion
@@ -97,7 +101,7 @@ namespace Maker
         /// </summary>
         /// <returns>a string signifying how difficult a level is.</returns>
         public string DecodeDifficulty() {
-            string difficultyString = "--NOT CLEARED--";
+            string difficultyString = "Unknown";
             if (this.Difficulty != null)
             {
                 double difficulty = (int)((double)this.Difficulty * 100);

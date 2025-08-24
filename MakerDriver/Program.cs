@@ -11,6 +11,27 @@ namespace MakerDriver
             Console.Clear();
 
             Maker.Api api = new Maker.Api();
+            List<Level> authorLevels = api.GetLevelsForAuthor(8575);
+            foreach (var l in authorLevels)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(l.Likes);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.Write("/");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{l.Dislikes}\t");
+
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine(l.DecodeDifficulty());
+
+                Console.ForegroundColor = ConsoleColor.DarkCyan;
+                Console.WriteLine(l.Author.Name);
+
+                Console.ForegroundColor = ConsoleColor.Gray;
+                Console.WriteLine("═══════════════════════════════════");
+            }
+
+
             List<Level> levels = api.GetLevels(Maker.LevelOrder.Downloads, OrderDirection.Desc, 0, 5);
             //List<Level> levels = api.GetLevelsBySearch("kaizo race", 0, 100);
             //foreach (var l in levels)

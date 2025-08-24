@@ -64,11 +64,13 @@ namespace Maker
                 int lid = x.id;
                 int lboss = x.boss;
                 string lname = x.name;
+                DateTime date = x.created;
+                int downloads = x.downloads;
                 int llikes = x.likes;
                 int ldislikes = x.dislikes;
-                    JTokenReader jtoken = new JTokenReader(x.difficulty); 
+                JTokenReader jtoken = new JTokenReader(x.difficulty); 
                 double? ldifficulty = jtoken.ReadAsDouble();
-                Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author);
+                Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author,date,downloads);
 
                 levels.Add(level);
             }
@@ -108,11 +110,13 @@ namespace Maker
                 int lid = x.id;
                 int lboss = x.boss;
                 string lname = x.name;
+                DateTime date = x.created;
+                int downloads = x.downloads;
                 int llikes = x.likes;
                 int ldislikes = x.dislikes;
                 JTokenReader jtoken = new JTokenReader(x.difficulty);
                 double? ldifficulty = jtoken.ReadAsDouble();
-                Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author);
+                Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author,date,downloads);
 
                 levels.Add(level);
             }
@@ -143,11 +147,13 @@ namespace Maker
             int lid = data.id;
             int lboss = data.boss;
             string lname = data.name;
+            DateTime date = data.created;
+            int downloads = data.downloads;
             int llikes = data.likes;
             int ldislikes = data.dislikes;
             JTokenReader jtoken = new JTokenReader(data.difficulty);
             double? ldifficulty = jtoken.ReadAsDouble();
-            Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author);
+            Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author,date,downloads);
 
             return level;
         }
@@ -216,9 +222,38 @@ namespace Maker
         /// </summary>
         /// <param name="authorId">An int representing the ID of an author.</param>
         /// <returns>A List of Levels.</returns>
-        //public List<Level> GetLevelsForAuthor(int authorId)
-        //{
-        //    return new List<Level>();
-        //}
+        public List<Level> GetLevelsForAuthor(int authorId)
+        {
+            string url = String.Format("https://api.megamanmaker.com/level/user/{0}", authorId);
+
+            WebRequest request = WebRequest.Create(url);
+            Stream requestStream = request.GetResponse().GetResponseStream();
+
+            StreamReader objReader = new StreamReader(requestStream);
+            dynamic data = JObject.Parse(objReader.ReadLine());
+
+            int aid = data.levels[0].authorId;
+            string aname = data.levels[0].authorName;
+            int aicon = data.levels[0].authorIcon;
+            Author author = new Author(aid, aname, aicon);
+
+            List<Level> levels = new List<Level>();
+
+            foreach (var dlevel in data.levels)
+            {
+                int lid = dlevel.id;
+                int lboss = dlevel.boss;
+                string lname = dlevel.name;
+                DateTime date = dlevel.created;
+                int downloads = dlevel.downloads;
+                int llikes = dlevel.likes;
+                int ldislikes = dlevel.dislikes;
+                JTokenReader jtoken = new JTokenReader(dlevel.difficulty);
+                double? ldifficulty = jtoken.ReadAsDouble();
+                Level level = new Level(lid, lname, ldifficulty, llikes, ldislikes, lboss, author, date, downloads);
+                levels.Add(level);
+            }
+            return levels;
+        }
     }
 }
